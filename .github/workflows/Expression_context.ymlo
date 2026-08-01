@@ -1,0 +1,17 @@
+name: expressions
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v7
+      - name: print Author without expression
+        run: echo "Hello github.actor"
+      - name: print Author with expression
+        run: echo "Hello ${{ github.actor }}"
+      - name: using expressions
+        id: using_expressions
+        run: echo "${{ github.run_number }}"
+      - name: print the outcome of the last step
+        run: echo "${{ steps.using_expressions.outcome }}"

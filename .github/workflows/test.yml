@@ -1,0 +1,73 @@
+name: test project 
+on: [push,workflow_dispatch]
+env:
+  MONGO_HOST: 'cluster0.pip1qsl.mongodb.net'
+  MONGO_DB: 'Demo'
+  MONGO_USER: ${{secrets.MONGO_USER}}
+  MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
+jobs:
+  test:
+    uses: ./.github/workflows/reusable.yml
+    with: 
+      python-version: '3.11'
+      test-file: tests/test_data_quality.py
+
+  show_results:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: show the results
+        run: |
+          echo "test status is ${{needs.test.outputs.test_status}}
+          echo "number of rows is ${{needs.test.outputs.row_count}}
+
+  # build:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Get Code
+  #       uses: actions/checkout@v7
+  #     - name: cashing requierments
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.cache/pip
+  #         key: pip-${{hashFiles('requirements.txt')}}
+  #     - name: install Python 
+  #       uses: actions/setup-python@v6
+  #       with:
+  #         python-version: '3.11'    
+  #     - name: install reiquirments
+  #       run: pip install -r requirements.txt
+  #     - name: generate artifact
+  #       run: python build_output.py
+  #     - name: upload artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with: 
+  #         name: transformed_data
+  #         path: |
+  #           data/clean_sales.csv
+  #           data/sales_by_category.csv
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest 
+  #   steps:
+  #     - name: get Code
+  #       uses: actions/checkout@v7
+  #     - name: cashing requierments
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.cache/pip
+  #         key: pip-${{hashFiles('requirements.txt')}}
+  #     - name: install Python 
+  #       uses: actions/setup-python@v6
+  #       with:
+  #         python-version: '3.11'    
+  #     - name: install reiquirments
+  #       run: pip install -r requirements.txt
+  #     - name: download artifacts
+  #       uses: actions/download-artifact@v4
+  #       with: 
+  #         name: transformed_data
+  #         path: data/
+  #     - name: deploy 
+  #       run: python deploy_to_mongo.py
