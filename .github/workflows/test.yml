@@ -51,3 +51,9 @@ jobs:
         run: pip install -r requirements.txt
       - name: deploy 
         run: echo "deploy is done"
+      - name: dowenload artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: transformed_data
+      - name: check files
+        run: ls
