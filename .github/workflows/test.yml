@@ -33,6 +33,11 @@ jobs:
         with:
           name: transformed_data
           path: artifact/*.csv
+      - name: list files 
+        run: |
+          cd artifact/
+          ls
+
   deploy:
     needs: test
     runs-on: ubuntu-latest 
