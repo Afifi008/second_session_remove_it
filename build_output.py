@@ -8,9 +8,9 @@ import pandas as pd
 
 df = pd.read_csv("data/raw_sales.csv")
 cleaned = clean_sales(df)
-cleaned.to_csv("data/clean_sales.csv", index=False)
+cleaned.to_csv("artifact/clean_sales.csv", index=False)
 print(f"Cleaned: {len(cleaned)} rows")
 
 agg = aggregate_by_category(cleaned)
-agg.to_csv("data/sales_by_category.csv", index=False)
+agg.to_csv("artifact/sales_by_category.csv", index=False)
 print(f"Aggregated: {len(agg)} categories")

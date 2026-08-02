@@ -6,17 +6,17 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v7
-      # - name: install Python 
-      #   uses: actions/setup-python@v6
-      #   with:
-      #     python-version: '3.11'    
-      # - name: install reiquirments
-      #   run: pip install -r requirements.txt
-      # - name: run test data quality 
-      #   run: pytest tests/test_data_quality.py
+      - name: install Python 
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'    
+      - name: install reiquirments
+        run: pip install -r requirements.txt
+      - name: run test data quality 
+        run: pytest tests/test_data_quality.py
   build:
     needs: test
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps:
       - name: Get Code
         uses: actions/checkout@v7
@@ -26,19 +26,15 @@ jobs:
           python-version: '3.11'    
       - name: install reiquirments
         run: pip install -r requirements.txt
-      - name: build output
+      - name: run build script
         run: python build_output.py
-      - name: upload artifact 
+      - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: transformed_data
-          path: |
-            data/clean_sales.csv
-            data/sales_by_category.csv
-      
-
+          path: artifact/*.csv
   deploy:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest 
     steps:
       - name: get Code
@@ -51,14 +47,3 @@ jobs:
         run: pip install -r requirements.txt
       - name: deploy 
         run: echo "deploy is done"
-      - name: dowenload artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: transformed_data
-          path: data/ 
-      - name: check files
-        run: ls
-      - name: check files in data file 
-        run: |
-          cd data/
-          ls
