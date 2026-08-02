@@ -58,3 +58,7 @@ jobs:
           path: data/ 
       - name: check files
         run: ls
+      - name: check files in data file 
+        run: |
+          cd data/
+          ls
