@@ -1,9 +1,9 @@
 name: test project 
 on: [push, workflow_dispatch]
 env:
-  MONGO_PASSWORD: '7FRQUFX8VvC1ETA1'
+  MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
   MONGO_HOST: 'cluster0.tp7f9sn.mongodb.net'
-  MONGO_USER: 'AhmedAfifi'
+  MONGO_USER: ${{secrets.MONGO_USER}}
   MONGO_DB:  'DEMO'
 
 jobs:
