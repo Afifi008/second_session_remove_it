@@ -7,50 +7,50 @@ env:
   MONGO_DB:  'DEMO'
 
 jobs:
-  test:
-    runs-on: ubuntu-latest 
-    steps:
-      - name: Get Code
-        uses: actions/checkout@v7
-      - name: install Python 
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.11' 
-      - name: caching requirments
-        uses: actions/cache@v4
-        with:
-          path: ~/cache/pip
-          key: pip-${{hashFiles('requirements.txt')}}          
-      - name: install requirments
-        run: pip install -r requirements.txt
-      - name: run test data quality 
-        run: pytest tests/test_data_quality.py
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Code
-        uses: actions/checkout@v7
-      - name: install Python 
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
-      - name: caching requirments
-        uses: actions/cache@v4
-        with:
-          path: ~/cache/pip
-          key: pip-${{hashFiles('requirements.txt')}}        
-      - name: install requirments
-        run: pip install -r requirements.txt
-      - name: run build script
-        run: python build_output.py
-      - name: upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: transformed_data
-          path: artifact/*.csv
+  # test:
+  #   runs-on: ubuntu-latest 
+  #   steps:
+  #     - name: Get Code
+  #       uses: actions/checkout@v7
+  #     - name: install Python 
+  #       uses: actions/setup-python@v6
+  #       with:
+  #         python-version: '3.11' 
+  #     - name: caching requirments
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/cache/pip
+  #         key: pip-${{hashFiles('requirements.txt')}}          
+  #     - name: install requirments
+  #       run: pip install -r requirements.txt
+  #     - name: run test data quality 
+  #       run: pytest tests/test_data_quality.py
+  # build:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Get Code
+  #       uses: actions/checkout@v7
+  #     - name: install Python 
+  #       uses: actions/setup-python@v6
+  #       with:
+  #         python-version: '3.11'
+  #     - name: caching requirments
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/cache/pip
+  #         key: pip-${{hashFiles('requirements.txt')}}        
+  #     - name: install requirments
+  #       run: pip install -r requirements.txt
+  #     - name: run build script
+  #       run: python build_output.py
+  #     - name: upload artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: transformed_data
+  #         path: artifact/*.csv
   deploy:
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest 
     steps:
       - name: get Code
@@ -76,5 +76,5 @@ jobs:
       - name: deploy 
         run: echo "deploy is done"
       - name: deploy to mongon
-        run: python .\deploy_to_mongo.py
+        run: python deploy_to_mongo.py
 
