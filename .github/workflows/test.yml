@@ -20,6 +20,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/cache/pip
+          key: pip-${{hashFiles('requirements.txt')}}          
       - name: install requirments
         run: pip install -r requirements.txt
       - name: run test data quality 
@@ -33,7 +34,12 @@ jobs:
       - name: install Python 
         uses: actions/setup-python@v6
         with:
-          python-version: '3.11'    
+          python-version: '3.11'
+      - name: caching requirments
+        uses: actions/cache@v4
+        with:
+          path: ~/cache/pip
+          key: pip-${{hashFiles('requirements.txt')}}        
       - name: install requirments
         run: pip install -r requirements.txt
       - name: run build script
@@ -53,6 +59,11 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.11'  
+      - name: caching requirments
+        uses: actions/cache@v4
+        with:
+          path: ~/cache/pip
+          key: pip-${{hashFiles('requirements.txt')}}        
       - name: install reiquirments
         run: pip install -r requirements.txt
       - name: download artifact
