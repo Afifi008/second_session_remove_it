@@ -1,5 +1,10 @@
 name: test project 
 on: [push, workflow_dispatch]
+env:
+  MONGO_PASSWORD: '7FRQUFX8VvC1ETA1'
+  MONGO_HOST: 'cluster0.tp7f9sn.mongodb.net'
+  MONGO_USER: 'AhmedAfifi'
+  MONGO_DB:  'DEMO'
 
 jobs:
   test:
@@ -59,3 +64,6 @@ jobs:
         run: ls
       - name: deploy 
         run: echo "deploy is done"
+      - name: deploy to mongon
+        run: python .\deploy_to_mongo.py
+
