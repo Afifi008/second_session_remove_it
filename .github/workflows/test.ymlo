@@ -1,5 +1,6 @@
 name: test project 
 on: [push, workflow_dispatch]
+
 jobs:
   test:
     runs-on: ubuntu-latest 
@@ -9,12 +10,11 @@ jobs:
       - name: install Python 
         uses: actions/setup-python@v6
         with:
-          python-version: '3.11'    
+          python-version: '3.11' 
       - name: caching requirments
         uses: actions/cache@v4
         with:
-          path: ~/.cache/pip
-          key: pip_requirements_${{hashFiles('requirements.txt')}}
+          path: ~/cache/pip
       - name: install requirments
         run: pip install -r requirements.txt
       - name: run test data quality 
@@ -29,11 +29,6 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.11'    
-      - name: caching requirments
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: pip_requirements_${{hashFiles('requirements.txt')}}
       - name: install requirments
         run: pip install -r requirements.txt
       - name: run build script
@@ -53,17 +48,13 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.11'  
-      - name: caching requirments
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: pip_requirements_${{hashFiles('requirements.txt')}}  
-      # - name: install reiquirments
-      #   run: pip install -r requirements.txt
+      - name: install reiquirments
+        run: pip install -r requirements.txt
       - name: download artifact
         uses: actions/download-artifact@v4
         with:
           name: transformed_data
+          path: data/
       - name: list all files
         run: ls
       - name: deploy 
