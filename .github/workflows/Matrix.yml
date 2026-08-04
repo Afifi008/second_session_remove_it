@@ -11,6 +11,9 @@ jobs:
         exclude:
           - python-version: '3.9'
             os: 'windows-latest'
+        include:
+          - python-version: '3.12'
+            os: 'ubuntu-latest'
     runs-on: ${{matrix.os}}
     steps:
       - name: Get Code
