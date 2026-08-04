@@ -24,10 +24,10 @@ jobs:
       - name: print failuer message
         run: echo "Data Quality step has failed"
       - name: outcome
-        if: failure() && steps.test_data_quality.outcome == 'failure'
+        if: steps.test_data_quality.outcome == 'failure'
         run: echo "Outcome is Failuer"
       - name: conclusion
-        if: failure() && steps.test_data_quality.conclusion == 'failure'
+        if: steps.test_data_quality.conclusion == 'failure'
         run: echo "Outcome is Failuer" 
       - name: generate artifact
         run: python build_output.py
