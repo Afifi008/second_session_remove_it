@@ -18,8 +18,6 @@ jobs:
       - name: install reiquirments
         run: pip install -r requirements.txt
       - name: run test data quality 
-        continue-on-error: true 
-        id: test_data_quality
         run: pytest tests/test_data_quality.py
       - name: print failuer message
         run: echo "Data Quality step has failed"
