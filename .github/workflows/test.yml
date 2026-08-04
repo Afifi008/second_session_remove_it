@@ -10,7 +10,7 @@ jobs:
   test:
     uses: ./.github/workflows/reusable.yml
     with:
-      python-version: '3.11'
+      python_version: '3.11'
       test_file: 'tests/test_data_quality.py'
   build:
     needs: test
