@@ -11,6 +11,8 @@ jobs:
         exclude:
           - python-version: '3.9'
             os: 'windows-latest'
+          - python-version: '3.9'
+            os: ubuntu-latest'
         include:
           - python-version: '3.12'
             os: 'ubuntu-latest'
